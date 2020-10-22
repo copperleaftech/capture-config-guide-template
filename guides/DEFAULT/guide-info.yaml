@@ -1,0 +1,8 @@
+id: Guide_Sample
+name: Sample Investment Guide
+version: Version1
+image: core
+description: This is a simple investment guide
+titlePattern: "{Name}"
+titleMaxLength: 100
+

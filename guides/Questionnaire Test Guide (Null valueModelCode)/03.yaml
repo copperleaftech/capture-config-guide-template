@@ -1,8 +1,0 @@
-id: value-model-search
-label: Value Model Selection
-type: VALUE_MODEL_SELECTION
-primarySearchFilters:
-- id: name
-  label: Name
-  placeholderText: Enter Name
-

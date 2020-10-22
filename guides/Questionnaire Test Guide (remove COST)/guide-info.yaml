@@ -1,0 +1,19 @@
+id: Guide_03_Questionnaire_remove_cost
+name: Questionnaire Test Guide (remove COST)
+description: This is the description
+predictiveAnalyticsEnabled: true
+titlePattern: "{DivisionIB} {LineIB} - {Name}"
+titleMaxLength: 100
+authors:
+    - cjiang@copperleaf.com
+    - author2@example.com
+version: Version1
+image: core
+excludedFields:
+  - AccountCode
+  - ComposeTitle
+dependencyFunctorDefinitions:
+  InvestmentTemplateFunctor:
+    fieldId: InvestmentTemplate
+    lookupEntityType: parentInvestment
+    defaultValue: ''

@@ -1,0 +1,111 @@
+id: asset-search
+label: Asset Selection
+type: ASSET_SELECTION
+enableMapView: true
+mapServerUrl: "https://tile.dev.ib.copperleaf.cloud/osm_tiles"
+primarySearchFilters:
+- id: codeOrName
+  label: ID or Name
+  placeholderText: Enter ID or Name
+additionalSearchFilters:
+- id: DivisionIB
+  type: typeahead
+  label: Operating Division
+  dataSourceConfig:
+    sourceType: Remote
+    dataType: Object
+    method: POST
+    displayTextProperty: DivisionIBName
+    valueProperty: DivisionIBCode
+    serializeAsObject: true
+    dataUrl: ib.server/v1/guides/data-table/lookup/single-value?responseType=columns
+    responseDataPath: values
+    additionalParameters:
+      code: DivisionIB
+      columns:
+      - DivisionIBName
+      - DivisionIBCode
+- id: LineIB
+  type: typeahead
+  label: Operating Line
+  dataSourceConfig:
+    sourceType: Remote
+    dataType: Object
+    method: POST
+    displayTextProperty: LineIBName
+    valueProperty: LineIBCode
+    serializeAsObject: true
+    dataUrl: ib.server/v1/guides/data-table/lookup/single-value?responseType=columns
+    responseDataPath: values
+    additionalParameters:
+      code: LineIB
+      columns:
+      - LineIBName
+      - LineIBCode
+    dependencies:
+    - parentId: DivisionIB
+      parentValuePath: DivisionIBCode
+      parameterName: DivisionIBCode
+- id: AssetTypeCode
+  type: typeahead
+  label: Asset Type
+  dataSourceConfig:
+    sourceType: Remote
+    dataType: Object
+    displayTextProperty: name
+    valueProperty: code
+    serializeAsObject: true
+    dataUrl: ib.server/v1/guides/core-fields/asset-types
+searchResultConfig:
+  gridColumns:
+  - field: code
+    title: Asset ID
+    sortable: true
+  - field: name
+    title: Asset Name
+    sortable: true
+  - field: DivisionIB
+    title: "Operating Division"
+    sortable: true
+  - field: LineIB
+    title: "Operating Line"
+    sortable: true
+  - field: assetTypeDisplayName
+    title: Asset Type
+    sortable: true
+  - field: InterventionTypeName
+    title: "Intervention Type Name"
+    sortable: true
+  - field: inServiceDate
+    title: "In Service Date"
+    sortable: true
+    type: date
+    format: medium
+  - field: OptimalInterventionDate
+    title: "Optimal Intervention Date"
+    type: date
+    format: medium
+    sortable: true
+  - field: RecommendedInterventionDate
+    title: "Recommended Intervention Date"
+    type: date
+    format: medium
+    sortable: true
+  mapAssetSummaryFields:
+  - field: code
+    title: Asset ID
+  - field: assetTypeDisplayName
+    title: Asset Type
+  defaultPagingSize : 25
+  maxResultLimit: 2000
+  groupable: false
+riskYearRange:
+  minRiskYear: 2025
+  maxRiskYear: 2050
+assetTypeRiskYearThresholds:
+  LinearAssetGeneration1:
+    highRiskThreshold: 7
+    moderateRiskThreshold: 9
+  LinearAssetGeneration2:
+    highRiskThreshold: 6
+    moderateRiskThreshold: 7

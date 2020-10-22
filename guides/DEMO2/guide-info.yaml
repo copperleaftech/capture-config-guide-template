@@ -1,0 +1,23 @@
+id: Guide_00_DEMO_NoScope
+name: Universal Investment Guide_Hide_Scope
+description: This is the description
+predictiveAnalyticsEnabled: true
+titlePattern: "{DivisionIB} {LineIB} - {Name}"
+titleMaxLength: 100
+authors:
+    - cjiang@copperleaf.com
+    - author2@example.com
+version: Version1
+image: core
+excludedFields:
+  - AccountCode
+  - ComposeTitle
+dependencyFunctorDefinitions:
+  InvestmentTemplateFunctor:
+    fieldId: InvestmentTemplate
+    lookupEntityType: parentInvestment
+    defaultValue: ''
+estimateTemplateConfig:
+  estimateTemplateCode: ET1
+  requiredByDateFieldId: RequiredByDate
+  accountCode: foo

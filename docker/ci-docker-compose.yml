@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  builder:
+    image: capture/tva-demo-config:${GIT_COMMIT:-dev}
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+      args:
+        TRANSFORM_IMAGE_TAG: "${TRANSFORM_IMAGE_TAG:-develop}"
+    volumes:
+      - "${WORKSPACE:-..}:/code/link"
+    command: cp -r output link

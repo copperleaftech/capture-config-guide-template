@@ -1,0 +1,19 @@
+id: Questionnaire_test_guide_instance_no_value_model_config
+name: Questionnaire Test Guide (Instance with no Value Model config)
+description: This is the description
+predictiveAnalyticsEnabled: true
+titlePattern: "{DivisionIB} {LineIB} - {Name}"
+titleMaxLength: 100
+authors:
+    - cjiang@copperleaf.com
+    - author2@example.com
+version: Version1
+image: core
+excludedFields:
+  - AccountCode
+  - ComposeTitle
+dependencyFunctorDefinitions:
+  InvestmentTemplateFunctor:
+    fieldId: InvestmentTemplate
+    lookupEntityType: parentInvestment
+    defaultValue: ''

@@ -1,0 +1,3 @@
+ARG ECR_REGISTRY=415504675997.dkr.ecr.us-west-2.amazonaws.com
+ARG TRANSFORM_IMAGE_TAG=develop
+FROM ${ECR_REGISTRY}/capture/transform:${TRANSFORM_IMAGE_TAG}

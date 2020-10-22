@@ -1,0 +1,170 @@
+id: Example Form
+label: Investment Fields
+rows:
+- justifyContent: center
+  columns:
+  - colspan:
+    - 12
+    - 5
+    - 5
+    sections:
+    - id: A
+      fields:
+      - id: Code
+        type: text
+        hidden: true
+        label: Code
+      - id: Name
+        type: text
+        label: Text Field
+        placeholderText: Enter Unique Title...
+        tooltip: Map to Name field
+        alignment: center
+        validations:
+        - name: required
+      - id: Description
+        type: text-area
+        meta:
+          - key: customFieldCode
+            value: Description
+        label: Text-area Field
+        placeholderText: For example
+        tooltip: Map to Description Field
+        alignment: center
+        rows: 10
+      - id: InvestmentStage
+        type: text
+        label: Investment Stage
+        hidden: true
+        value: Initial
+      - id: InvestmentTypeName
+        type: text
+        label: Investment Type
+        hidden: true
+        value: Project
+      - id: FacilityCode
+        type: text
+        label: Facility
+        hidden: true
+        value: A1
+      - id: AccountCode
+        type: text
+        label: Account Code
+        hidden: true
+        value: foo
+      - id: OilBreakdownStrength
+        type: number
+        label: Number Field
+        placeholderText: Map to Breakdown Strength field...
+        tooltip: Map to Breakdown Strength field
+      - id: Design
+        type: integer
+        label: Integer Field
+        placeholderText: Map to Design field...
+        tooltip: Map to Design field
+      - id: MultiFeed
+        type: checkbox
+        label: Checkbox Field
+        placeholderText: Map to MultiFeed field...
+        tooltip: Map to MultiFeed field
+  - colspan:
+    - 12
+    - 7
+    - 7
+    sections:
+    - id: B
+      fields:
+      - id: DivisionIB
+        type: typeahead
+        label: Typeahead Dropdown Field (remote data source using datatable)
+        placeholderText: Select an Operating Division...
+        tooltip: Map to Operating Division...
+        alignment: center
+        validations:
+        - name: required
+        dataSource:
+          sourceType: Remote
+          dataType: Object
+          method: POST
+          displayTextProperty: DivisionIBName
+          valueProperty: DivisionIBCode
+          serializeAsObject: true
+          dataUrl: ib.server/v1/guides/data-table/lookup/single-value?responseType=columns
+          responseDataPath: values
+          additionalParameters:
+            code: DivisionIB
+            columns:
+            - DivisionIBName
+            - DivisionIBCode
+      - id: LineIB
+        type: typeahead
+        label: Dependant Dropdown  Field (remote data source using datatable)
+        placeholderText: Select an Operating Line...
+        tooltip: Map to Operating Line...
+        validations:
+        - name: required
+        dataSource:
+          sourceType: Remote
+          dataType: Object
+          method: POST
+          displayTextProperty: LineIBName
+          valueProperty: LineIBCode
+          serializeAsObject: true
+          dataUrl: ib.server/v1/guides/data-table/lookup/single-value?responseType=columns
+          responseDataPath: values
+          additionalParameters:
+            code: LineIB
+            columns:
+            - LineIBName
+            - LineIBCode
+          dependencies:
+          - parentId: DivisionIB
+            parentValuePath: DivisionIBCode
+            parameterName: DivisionIBCode
+      - id: RequiredByDate
+        type: date-picker
+        format: MMM dd, yyyy
+        label: Date-picker Type Field
+        placeholderText: Enter Need Date
+        tooltip: Map to Required by Date
+        alignment: center
+        validations:
+        - name: minDate
+          value: 1/1/2018
+        - name: maxDate
+          value: 12/31/2033
+        - name: required
+      - id: InvestmentOwnerUserName
+        type: typeahead
+        label: Typeahead dropdown (core field)
+        placeholderText: Select an Investment Owner...
+        tooltip: Map to Investment Owner Field
+        minimumFilterCharacters: 2
+        alignment: center
+        validations:
+        - name: required
+        dataSource:
+          sourceType: Remote
+          dataType: Object
+          displayTextProperty: displayName
+          valueProperty: userName
+          dataUrl: ib.server/v1/guides/core-fields/users
+          responseDataPath:
+      - id: ConditionalEffectParent
+        type: checkbox
+        label: Conditional Effect Parent Field
+        placeholderText: Click to show dependent field...
+        tooltip: Click to show dependent field...
+      - id: ConditionalEffectDependent
+        type: integer
+        label: Conditional Effect Dependent Field
+        placeholderText: Map to dependent field...
+        tooltip: Map to dependent field
+        conditionalEffects:
+          baseEffect: hidden
+          enabled:
+            triggers:
+              - targetId: ConditionalEffectParent
+                targetValueType: boolean
+                conditions:
+                  - if: 'true'

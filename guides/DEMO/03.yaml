@@ -1,0 +1,7 @@
+id: configuration 2
+label: Scope
+type: SCOPE
+referencedFieldIds:
+  template: EstimateTemplate
+  requiredBy: RequiredByDate
+  account: AccountCode
